@@ -1,5 +1,13 @@
 import Pile
 
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello():
+    return '<h1>Hello, World!</h1>'
 
 class EntreeUtilisateur:
     # Le maximum et le minimum entier qui peut etre donne en entree pour le programme
