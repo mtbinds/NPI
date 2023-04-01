@@ -176,7 +176,7 @@ def entree_utilisateur_flask():
         entree_1 = ""
         entree_2 = ""
         entree_3 = ""
-        while entree_utilisateur.pile.len()>0 :
+        while len(entree_utilisateur.pile) >0 :
             entree_utilisateur.pile.depiler()
     
 

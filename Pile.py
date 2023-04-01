@@ -15,6 +15,16 @@ class Pile:
 
     def voir_elem(self):
         return self.pile[-1]
+    
+    def est_vide(self):
+        return self.pile == []
+    
+    def longueur_pile(self):
+        j = 0
+        while not self.vide():
+            self.depile()
+            j += 1
+        return j
 
     def non_pleine(self, length):
         # Renvoie vrai si la pile est <= une longueur donnée
