@@ -1,10 +1,17 @@
 import Pile
 
 
-
 from flask import Flask, render_template, request
+import os
+import sqlite3
+import csv
+
+
+FICHIER_DB = "datas_bd.db"
+FICHIER_CSV= "datas.csv"
 
 app = Flask(__name__)
+app.secret_key = 'zvqefhuzbfdzvgvdge'
 # app.config.from_object(__name__)
 
 @app.route('/')
@@ -25,7 +32,7 @@ class EntreeUtilisateur:
     def __init__(self):
         self.pile = Pile.Pile()  # Initialise la classe de pile en tant qu'objet
         self.pointeur_aleatoire = 0  # Utilisé pour pointer vers le prochain nombre alaatoire dans la liste
-        self.result = ""
+        self.pile.resultat = ""
     
     def traiter_commande(self, commande):
         if commande.lstrip('-').isdigit():
@@ -55,9 +62,8 @@ class EntreeUtilisateur:
                 print("La pile est vide.")
                 self.pile.empiler(str(EntreeUtilisateur.VALEUR_MIN))
             else:
-                #self.RESULT = self.pile.voir_elem()
                 print(self.pile.voir_elem())
-                self.pile.result = self.pile.voir_elem()
+                self.pile.resultat = self.pile.voir_elem()
 
         elif commande == 'd':
             # Si la pile est vide, le programme imprimera VALEUR_MIN, sinon imprimera toutes les valeurs de la pile
@@ -155,58 +161,118 @@ def supprimer_commentaires(expression):
 
 @app.route('/', methods=['GET','POST'])
 def entree_utilisateur_flask():
+    
+    entree = request.form.get("entree", type=str, default=" ")
 
-    entree_0 = request.form.get("entree_0", type=str, default="")
-    entree_1 = request.form.get("entree_1", type=str, default="")
-    entree_2 = request.form.get("entree_2", type=str, default="")
-    entree_3 = request.form.get("entree_3", type=str, default="")
+    print("izaaaaaan")
+    print(entree)
 
-    liste_entrees = [entree_0,entree_1,entree_2,entree_3]
-
-    #print(liste_entrees)
-
-    reinitialiser = request.form.get("reinitialiser", type=str, default="")
+    #reinitialiser = request.form.get("reinitialiser", type=str, default="")
+    
+    #print(reinitialiser)
     
     # Entree Utilisateur 
 
     entree_utilisateur = EntreeUtilisateur()
+   
+    while  True and entree is not None:
 
-    while reinitialiser is not None:
-        entree_0 = ""
-        entree_1 = ""
-        entree_2 = ""
-        entree_3 = ""
-        while len(entree_utilisateur.pile) >0 :
-            entree_utilisateur.pile.depiler()
-    
-
-    
-    while  True and liste_entrees is not None:
         try:
-            # Invite l'utilisateur à entrer, divise l'entrée, supprime les commentaires et appelle la méthode
-            # traiter_commande
-            # entree_0 = supprimer_commentaires(entree_0.split())
-            #for car in entree_0:
-            #    entree_utilisateur.traiter_commande(car)
-
             
-            for entree in liste_entrees :
+            if request.method == 'POST':
+            
                 entree = supprimer_commentaires(entree.split())
                 for car in entree:
-                     entree_utilisateur.traiter_commande(car)
+                    entree_utilisateur.traiter_commande(car)
                      
-            
+                
+                resultat = entree_utilisateur.pile.resultat
+
+                # Insertion dans la base de données
         
-            if request.method == 'POST':
-                result = entree_utilisateur.pile.result
-                print(result)
-                return render_template('index.html', entry=result)
+                with sqlite3.connect("datas_bd.db") as con:
+                         cur = con.cursor()
+                         cur.execute("INSERT INTO datas (entree,resultat) VALUES (?,?)",(str(entree),resultat))
+                         con.commit()
+                         msg = "Insertion réalisée avec succès"
+                         print("Insertion réalisée avec succès")
             
+                
+                return render_template('index.html', entry=resultat,msg=msg)
             
-        
+                
         except EOFError:
+            con.rollback()
             exit()
 
+
+            
+# Accès à la base de données et récupération des 
+        
+@app.route('/liste_datas')
+def liste_datas():
+   try:
+       
+      con = sqlite3.connect("datas_bd.db")
+      con.row_factory = sqlite3.Row
+   
+      cur = con.cursor()
+      cur.execute("select * from datas")
+   
+      datas = cur.fetchall();
+      return render_template("liste_datas.html", datas = datas)
+   
+   except:
+    
+      con.rollback()
+      return render_template("liste_datas.html", response = "Erreur de récupération des datas depuis la base de données SQLITE")
+
+   # Fermer la connexion à la base de données
+   finally:
+       con.close()
+
+
+# Permet d'enregistrer les datas depuis las base de donnees sqlite dans un ficher .csv (/CSV/datas.csv)
+
+@app.route('/liste_datas', methods=['GET','POST'])
+def entregistrer_csv():
+  
+  if request.method == 'POST':
+        
+        if request.form.get('exporter') == 'Exporter CSV':
+
+           try:
+
+               # Connection à la base de données
+               conn=sqlite3.connect(FICHIER_DB)
+ 
+               # Export data into CSV file
+               print("Exportation des datas vers datas.csv............")
+               cursor = conn.cursor()
+               cursor.execute("select * from datas")
+
+               with open("CSV/"+FICHIER_CSV, "w") as fichier_csv:
+           
+                  csv_writer = csv.writer(fichier_csv, delimiter="\t")
+                  csv_writer.writerow([i[0] for i in cursor.description])
+                  csv_writer.writerows(cursor)
+
+               dirpath = os.getcwd() + "CSV/" + FICHIER_CSV 
+               print("Les données datas ont exportées avec succès vers {}".format(dirpath))
+               return render_template("liste_datas.html", reponse = "Les datas ont été exportées avec succès vers datas.csv !")
+
+           except:
+                conn.rollback()
+                return render_template("liste_datas.html", response = "Erreur d'exportation vers datas.csv")
+
+           # Fermer la connexion à la base de données
+           finally:
+                conn.close() 
+        else:
+            liste_datas()
+            
+
+ 
 if __name__ == "__main__":
 
     app.debug = True

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <title>Calculatrice NPI</title>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 
 	<body align=center>
@@ -17,55 +18,50 @@
 			<div class="col-md-4">
 				<form class="form-horizontal" method="post">
 					<div class="form-group">
-						<label class="control-label col-xs-3" for="entree_utilisateur">Entrée 0 :</label>
+						<label class="control-label col-xs-3" for="entree_utilisateur">Entrée :</label>
 						<div class="col-xs-7">
-							<input type="text" class="form-control" name="entree_0"  value="{{ request.form['entree_0'] }}" placeholder="&nbsp;0&nbsp;">
+							<input type="text" class="form-control" name="entree"  value="{{ request.form['entree'] }}" placeholder=" ">
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="control-label col-xs-3" for="entree_1">Entrée 1 :</label>
-						<div class="col-xs-7">
-							<input type="text" class="form-control" name="entree_1"  value="{{ request.form['entree_1'] }}" placeholder="&nbsp;0&nbsp;">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-xs-3" for="entree_2">Entrée 2 :</label>
-						<div class="col-xs-7">
-							<input type="text" class="form-control" name="entree_2"  value="{{ request.form['entree_2'] }}" placeholder="&nbsp;0&nbsp;">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-xs-3" for="entree_3">Entrée 3 :</label>
-						<div class="col-xs-7">
-							<input type="text" class="form-control" name="entree_3"  value="{{ request.form['entree_3'] }}" placeholder="&nbsp;0&nbsp;">
-						</div>
-					</div>
-					<!--
-				
-					<div class="form-group">
-            			<label class="control-label col-xs-3">Operation:</label>
-            			<div class="col-xs-7">
-                			<select class="form-control" name="operation">
-                    			<option>Addition</option>
-                    			<option>Subtraction</option>
-                    			<option>Multiplication</option>
-                    			<option>Division</option>
-                			</select>
-            			</div>
-            		</div>
-				    -->
+					
 					<div class="form-group">
             			<div class="col-xs-offset-3 col-xs-9">
                 			<input type="submit" class="btn btn-success" value="Valider">
-                			<input type="reset" class="btn btn-danger" name ="reinitialiser" value="Reinitialiser">
+                			<input type="reset" class="btn btn-danger" name ="reinitialiser" value="Réinitialiser">
             			</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-xs-3">Result :</label>
+						<label class="control-label col-xs-3">Résultat :</label>
 						<div class="col-xs-7">
 							<input type="text" name="result" class="form-control" value={{ entry }}>
 						</div>
 					</div>
+
+                     
+					<div class="keys">
+						<!-- operators and other keys -->
+						<span>7</span>
+						<span>8</span>
+						<span>9</span>
+						<span class="operator">+</span>
+						<span>4</span>
+						<span>5</span>
+						<span>6</span>
+						<span class="operator">-</span>
+						<span>1</span>
+						<span>2</span>
+						<span>3</span>
+						<span class="operator">÷</span>
+						<span>0</span>
+						<span>.</span>
+						<span class="eval">=</span>
+						<span class="operator">x</span>
+					</div>
+
+
+
+
+
         		</form>
         	</div>
         	<div class="col-md-4"></div></div>

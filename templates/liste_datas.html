@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Liste des datas</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+	<body align=center>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4"><legend><h1>Liste des datas</h1></legend></div>
+			<div class="col-md-4"></div>
+		</div>
+			<br>
+			<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+                {{ msg }}
+					<table class="table">
+                        <thead>
+                           <td>Entrée</td>
+						   <td>Résultat</td>
+                        </thead>
+                        
+                        {% for row in datas %}
+                           <tr>
+                              <td>{{row["entree"]}}</td>
+                              <td>{{row["resultat"]}}</td>	
+                           </tr>
+                        {% endfor %}
+                     </table>
+				<form class="form-horizontal" method="post">
+                    
+                     <div class="form-group">
+            			<div class="col-xs-12">
+                			<input type="submit" class="btn btn-success" value="Exporter CSV" name="exporter">
+                			<input type="reset" class="btn btn-success" value="Actualiser" name="actualiser">
+
+            			</div>
+					</div>
+					
+        		</form>
+        	</div>
+        	<div class="col-md-4"></div></div>
+		</div>
+	</body>
+</html>
