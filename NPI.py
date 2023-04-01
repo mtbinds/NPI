@@ -1,13 +1,15 @@
 import Pile
 
-from flask import Flask
+
+
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
-
+# app.config.from_object(__name__)
 
 @app.route('/')
-def hello():
-    return '<h1>Hello, World!</h1>'
+def index():
+    return render_template('index.html')
 
 class EntreeUtilisateur:
     # Le maximum et le minimum entier qui peut etre donne en entree pour le programme
@@ -19,10 +21,12 @@ class EntreeUtilisateur:
         2145174067, 468703135, 1101513929, 1801979802, 1315634022, 635723058, 1369133069, 1125898167
     ]  # Stocke la liste des valeurs aleatoires dans le stockage
 
+
     def __init__(self):
         self.pile = Pile.Pile()  # Initialise la classe de pile en tant qu'objet
         self.pointeur_aleatoire = 0  # Utilisé pour pointer vers le prochain nombre alaatoire dans la liste
-
+        self.result = ""
+    
     def traiter_commande(self, commande):
         if commande.lstrip('-').isdigit():
             # Verifie si l'ajout du chiffre entraînera un debordement de la pile, sinon on l'empile dans la pile
@@ -51,7 +55,9 @@ class EntreeUtilisateur:
                 print("La pile est vide.")
                 self.pile.empiler(str(EntreeUtilisateur.VALEUR_MIN))
             else:
+                #self.RESULT = self.pile.voir_elem()
                 print(self.pile.voir_elem())
+                self.pile.result = self.pile.voir_elem()
 
         elif commande == 'd':
             # Si la pile est vide, le programme imprimera VALEUR_MIN, sinon imprimera toutes les valeurs de la pile
@@ -147,8 +153,73 @@ def supprimer_commentaires(expression):
     return expression
 
 
-if __name__ == "__main__":
+@app.route('/', methods=['GET','POST'])
+def entree_utilisateur_flask():
+
+    entree_0 = request.form.get("entree_0", type=str, default="")
+    entree_1 = request.form.get("entree_1", type=str, default="")
+    entree_2 = request.form.get("entree_2", type=str, default="")
+    entree_3 = request.form.get("entree_3", type=str, default="")
+
+    liste_entrees = [entree_0,entree_1,entree_2,entree_3]
+
+    #print(liste_entrees)
+
+    reinitialiser = request.form.get("reinitialiser", type=str, default="")
+    
+    # Entree Utilisateur 
+
     entree_utilisateur = EntreeUtilisateur()
+
+    while reinitialiser is not None:
+        entree_0 = ""
+        entree_1 = ""
+        entree_2 = ""
+        entree_3 = ""
+        while entree_utilisateur.pile.len()>0 :
+            entree_utilisateur.pile.depiler()
+    
+
+    
+    while  True and liste_entrees is not None:
+        try:
+            # Invite l'utilisateur à entrer, divise l'entrée, supprime les commentaires et appelle la méthode
+            # traiter_commande
+            # entree_0 = supprimer_commentaires(entree_0.split())
+            #for car in entree_0:
+            #    entree_utilisateur.traiter_commande(car)
+
+            
+            for entree in liste_entrees :
+                entree = supprimer_commentaires(entree.split())
+                for car in entree:
+                     entree_utilisateur.traiter_commande(car)
+                     
+            
+        
+            if request.method == 'POST':
+                result = entree_utilisateur.pile.result
+                print(result)
+                return render_template('index.html', entry=result)
+            
+            
+        
+        except EOFError:
+            exit()
+
+if __name__ == "__main__":
+
+    app.debug = True
+    app.run()
+
+    """
+    
+
+    # Entree Utilisateur
+
+    entree_utilisateur = EntreeUtilisateur()
+
+
     while True:
         try:
             # Invite l'utilisateur à entrer, divise l'entrée, supprime les commentaires et appelle la méthode
@@ -159,3 +230,7 @@ if __name__ == "__main__":
                 entree_utilisateur.traiter_commande(car)
         except EOFError:
             exit()
+
+
+    """
+    

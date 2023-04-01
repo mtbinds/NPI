@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Calculatrice NPI</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+
+	<body align=center>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4"><legend><h1>Calculatrice NPI</h1></legend></div>
+			<div class="col-md-4"></div>
+		</div>
+			<br>
+			<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<form class="form-horizontal" method="post">
+					<div class="form-group">
+						<label class="control-label col-xs-3" for="entree_utilisateur">Entrée 0 :</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" name="entree_0"  value="{{ request.form['entree_0'] }}" placeholder="&nbsp;0&nbsp;">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-xs-3" for="entree_1">Entrée 1 :</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" name="entree_1"  value="{{ request.form['entree_1'] }}" placeholder="&nbsp;0&nbsp;">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-xs-3" for="entree_2">Entrée 2 :</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" name="entree_2"  value="{{ request.form['entree_2'] }}" placeholder="&nbsp;0&nbsp;">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-xs-3" for="entree_3">Entrée 3 :</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" name="entree_3"  value="{{ request.form['entree_3'] }}" placeholder="&nbsp;0&nbsp;">
+						</div>
+					</div>
+					<!--
+				
+					<div class="form-group">
+            			<label class="control-label col-xs-3">Operation:</label>
+            			<div class="col-xs-7">
+                			<select class="form-control" name="operation">
+                    			<option>Addition</option>
+                    			<option>Subtraction</option>
+                    			<option>Multiplication</option>
+                    			<option>Division</option>
+                			</select>
+            			</div>
+            		</div>
+				    -->
+					<div class="form-group">
+            			<div class="col-xs-offset-3 col-xs-9">
+                			<input type="submit" class="btn btn-success" value="Valider">
+                			<input type="reset" class="btn btn-danger" name ="reinitialiser" value="Reinitialiser">
+            			</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-xs-3">Result :</label>
+						<div class="col-xs-7">
+							<input type="text" name="result" class="form-control" value={{ entry }}>
+						</div>
+					</div>
+        		</form>
+        	</div>
+        	<div class="col-md-4"></div></div>
+		</div>
+	</body>
+</html>
