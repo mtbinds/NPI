@@ -1,8 +1,9 @@
+<p align="center">
 # Titre du Project
-
+</p>
 Calculatrice NPI (Notation Polonaise Inverse)
 
-![plot](./images/calculatrice.png)
+![plot](./images/calculatrice.png) ![plot](./images/calculatrice2.png)
 
 ## Description
 
