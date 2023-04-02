@@ -1,10 +1,9 @@
-<h1 align="center">
+<h2 align="center">
  Calculatrice NPI (Notation Polonaise Inverse)
-</h1>
+</h2>
 
-
-
-![Capture 1](./images/calculatrice.png) ![Capture 2](./images/calculatrice2.png)
+* [Capture 1](./images/calculatrice.png) 
+* [Capture 2](./images/calculatrice2.png)
 
 ## Description
 
@@ -59,18 +58,18 @@ python3 SQLITE_BD.py
 ```
 python3 NPI.py
 ```
-* Vous pouvez maintenant accéder à l'application web [http://localhost:5000]
+* Vous pouvez maintenant accéder à l'application web [http://localhost:5000](http://localhost:5000)
 
 ## Utilisation de docker compose 
 
 ```
 docker compose up
 ```
-* Vous pouvez maintenant accéder à l'application web [http://localhost:5000] 
+* Vous pouvez maintenant accéder à l'application web [http://localhost:5000](http://localhost:5000) 
 
 ## Auteur
 
-Madjid TAOUALI  
+Madjid TAOUALIT  
 [Site Web](https://madjidportfolio.vercel.app/)
 
 ## Version History
