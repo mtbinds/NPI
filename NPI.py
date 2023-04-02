@@ -192,13 +192,13 @@ def entree_utilisateur_flask():
                 # Insertion dans la base de données
         
                 with sqlite3.connect("datas_bd.db") as con:
+                         
                          cur = con.cursor()
                          cur.execute("INSERT INTO datas (entree,resultat) VALUES (?,?)",(str(entree),resultat))
                          con.commit()
                          msg = "Insertion réalisée avec succès"
                          print("Insertion réalisée avec succès")
             
-                
                 return render_template('index.html', entry=resultat,msg=msg)
             
                 
@@ -234,9 +234,9 @@ def liste_datas():
 
 
 # Permet d'enregistrer les datas depuis las base de donnees sqlite dans un ficher .csv (/CSV/datas.csv)
-
+# Permet de purger la base de données SQLite
 @app.route('/liste_datas', methods=['GET','POST'])
-def entregistrer_csv():
+def operations():
   
   if request.method == 'POST':
         
@@ -270,23 +270,40 @@ def entregistrer_csv():
            finally:
                 conn.close() 
         else:
-            liste_datas()
-            
 
- 
+            if request.form.get('purger') == 'Purger':
+   
+               try:
+       
+                  conn = sqlite3.connect(FICHIER_DB)
+                  cur = conn.cursor()
+                  print("Connexion réussie à SQLite")
+                  sql = "delete from datas"
+                  cur.execute(sql)
+                  conn.commit()
+                  print("La table datas a été purgée avec succès ! ")
+                  cur.close()
+                  conn.close()
+                  print("La connexion SQLite est fermée")
+                  return render_template("liste_datas.html", purger = "Succès, La table datas a été purgée avec succès !")
+
+               except sqlite3.Error as Error:
+
+                   print("Erreur, la table datas n'a pas été purgée", Error)
+                   return render_template("liste_datas.html", purger = "Erreur, La table datas n'a pas été purgée avec succès !")
+
+
 if __name__ == "__main__":
     
     app.debug = True
     from waitress import serve
     serve(app, host="0.0.0.0", port=5000)
 
-    
     #app.run()
 
     """
     
-
-    # Entree Utilisateur
+    # Entree Utilisateur (par terminal)
 
     entree_utilisateur = EntreeUtilisateur()
 

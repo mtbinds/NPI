@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Liste des datas</title>
+        <title>Liste des datas (SQLite)</title>
 
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
         
@@ -59,11 +59,14 @@
                     
                      <div class="form-group">
 						<h2>{{reponse}}</h2>
+						<h2>{{purger}}</h2>
             			<div class="col-xs-12">
                 			<input type="submit" class="btn btn-success" value="Exporter CSV" name="exporter">
-            			</div>
+            			    <input type="submit" class="btn btn-danger" value="Purger" name="purger">
+						</div>
 						
 					</div>
+
 					
         		</form>
 				<a href ="liste_datas"> <input type="reset" class="btn btn-warning" value="Actualiser" name="actualiser"></a>
