@@ -1,0 +1,28 @@
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_ENV: development
+      FLASK_DEBUG: 0
+
+# Ceci est pour déployer à partir de DockerHub
+
+#version: '3'
+#services:
+#    web:
+#      build: ./
+#      image: madjidtaoualit/npi:1.0
+#      ports:
+#        - "5000:5000"
+#   
+#      volumes:
+#        - .:/app
+#      environment:
+#          FLASK_ENV: development
+#          FLASK_DEBUG:0
+        

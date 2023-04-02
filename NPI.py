@@ -164,10 +164,11 @@ def entree_utilisateur_flask():
     
     entree = request.form.get("entree", type=str, default=" ")
 
-    print("izaaaaaan")
-    print(entree)
+    reinitialiser = request.form.get("reinitialiser", type=str, default="")
 
-    #reinitialiser = request.form.get("reinitialiser", type=str, default="")
+    if reinitialiser is not None :
+        
+        render_template('index.html')
     
     #print(reinitialiser)
     
@@ -259,7 +260,7 @@ def entregistrer_csv():
 
                dirpath = os.getcwd() + "CSV/" + FICHIER_CSV 
                print("Les données datas ont exportées avec succès vers {}".format(dirpath))
-               return render_template("liste_datas.html", reponse = "Les datas ont été exportées avec succès vers datas.csv !")
+               return render_template("liste_datas.html", reponse = "Les datas ont été exportées avec succès vers datas.csv !, Veuillez actualiser SVP")
 
            except:
                 conn.rollback()
@@ -274,9 +275,13 @@ def entregistrer_csv():
 
  
 if __name__ == "__main__":
-
+    
     app.debug = True
-    app.run()
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=5000)
+
+    
+    #app.run()
 
     """
     
