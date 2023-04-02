@@ -1,21 +1,22 @@
 version: "3"
 services:
   web:
-    build: .
+    build: ./
+    image: madjidtaoualit/calculatrice-npi:1.0
     ports:
       - "5000:5000"
     volumes:
       - .:/app
     environment:
-      FLASK_ENV: development
+      FLASK_ENV: production
       FLASK_DEBUG: 0
 
-# Ceci est pour déployer à partir de DockerHub
+# Ceci est pour déployer à partir de DockerHub 
+# Mettez en commentaire d'abord la partie précédente)
 
 #version: '3'
 #services:
 #    web:
-#      build: ./
 #      image: madjidtaoualit/npi:1.0
 #      ports:
 #        - "5000:5000"
@@ -23,6 +24,6 @@ services:
 #      volumes:
 #        - .:/app
 #      environment:
-#          FLASK_ENV: development
+#          FLASK_ENV: production
 #          FLASK_DEBUG:0
         

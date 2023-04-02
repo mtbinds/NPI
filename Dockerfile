@@ -7,4 +7,6 @@ COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 EXPOSE 5000
 COPY . .
-CMD [ "flask","run" ]
+# Nous permets d'utiliser le serveur (waitress) qui est un serveur de production
+CMD ["python","NPI.py" ]
+
