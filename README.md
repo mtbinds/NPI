@@ -60,6 +60,12 @@ python3 NPI.py
 ```
 * Vous pouvez maintenant accéder à l'application web [http://localhost:5000](http://localhost:5000)
 
+## Exécution des tests unitaires Unittest
+
+```
+python3 NPI_test.py
+```
+
 ## Utilisation de docker compose 
 
 ```
@@ -67,18 +73,24 @@ docker compose up
 ```
 * Vous pouvez maintenant accéder à l'application web [http://localhost:5000](http://localhost:5000) 
 
+## Quelques instructions utiles
+
+* Laissez un espace entre chaque opérande (nombre/opération de calcul)
+* N'oubliez pas = à la fin de chaque entrée
+* Pour purger le fichier datas.csv, purgez d'abord la base de données puis faites un export cela va vider automatiquement le fichier datas.csv 
+
 ## Auteur
 
 Madjid TAOUALIT  
 [Site Web](https://madjidportfolio.vercel.app/)
 
-## Version History
+## Historique des versions
 
 * 0.1
-    * Various bug fixes and optimizations
-    * Voir [commit change]() ou Voir [release history]()
+    * Première version
+    * Voir [liste des commit](https://github.com/mtbinds/NPI/commits?author=madjidtaoualit)
 
 
 ## License
 
-This project is licensed under the MIT License - voir le fichier LICENSE.md pour plus de détails
+Ce projet est sous la licence MIT License - voir le fichier LICENSE.md pour plus de détails
