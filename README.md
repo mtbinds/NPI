@@ -2,6 +2,8 @@
 
 Calculatrice NPI (Notation Polonaise Inverse)
 
+![plot](./images/calculatrice.png)
+
 ## Description
 
 La notation polonaise inverse (NPI) (en anglais RPN pour Reverse Polish Notation), également connue sous le nom de notation post-fixée, permet d'écrire de façon non ambiguë les formules arithmétiques sans utiliser de parenthèses. Dérivée de la notation polonaise présentée en 1924 par le mathématicien polonais Jan Łukasiewicz, elle s’en différencie par l’ordre des termes, les opérandes y étant présentés avant les opérateurs et non l’inverse.
@@ -36,28 +38,24 @@ git clone https://github.com/mtbinds/NPI.git
 cd NPI
 python -m venv env
 source env/bin/activate
-
 ```
 
 ### Installation des libairies Python
 
 ```
 pip3 install -r requirements.txt
-
 ```
 
 ## Création de la base de données SQLite
 
 ```
 python3 SQLITE_BD.py
-
 ```
 
 ## Démarrage de l'API Flask avec le serveur waitress
 
 ```
 python3 NPI.py
-
 ```
 * Vous pouvez maintenant accéder à l'application web [http://localhost:5000]
 
@@ -65,7 +63,6 @@ python3 NPI.py
 
 ```
 docker compose up
-
 ```
 * Vous pouvez maintenant accéder à l'application web [http://localhost:5000] 
 
@@ -83,4 +80,4 @@ Madjid TAOUALI
 
 ## License
 
-This project is licensed under the MIT License
+This project is licensed under the MIT License - voir le fichier LICENSE.md pour plus de détails
